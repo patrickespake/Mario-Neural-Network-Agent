@@ -1,0 +1,53 @@
+Construção de um Agente Inteligente que Jogue Mario
+
+Nas últimas semanas eu veio estudando a fundo a técnica de inteligência artificial de redes neurais. Não é toa que praticamente os meus dois últimos posts foram sobre esse assunto.
+
+Tudo começou com a ideia de criar um agente inteligente que conseguisse jogar Mario sozinho, a minha pretensão nunca foi muito grande, eu apenas tinha a ideia de fazer algo simples que funcionasse, mas não tinha a grande pretensão de fazer um super agente inteligente capaz de passar por vários níveis diferentes de dificuldade do jogo Mario. Partindo disso, com o único objetivo de aprendizado, eu decidi usar a técnica de redes neurais e fazer o Mario passar pela primeira fase.
+
+Para simplificar mais ainda, eu fiz por padrão o Mario andar para a direita e a única ação que é aplicada inteligência artificial é a decisão se o Mario deve ou não pular.
+
+O código do jogo Mario eu obtive do site: http://www.marioai.org/gameplay-track/getting-started, esse é o site da competição que tem o foco na criação de agentes inteligentes e criação de fases para o Mario, usando inteligência artificial. Eles não disponibilizam o código da parte de inteligência artificial, cabe a cada participante implementar o seu algoritmo e enviar para a competição, o melhor agente inteligente vence. Eu também não tinha a ideia de vencer essa competição, não tenho nível e conhecimento suficiente para isso ainda.
+
+Antes de entrarmos em código e implementação, é importante entender do que consiste a técnica de redes neurais.
+
+De forma resumida, uma rede neural é constituída por um neurônio (perceptron), que possui a seguinte estrutra:
+
+    * Dendritos;
+    * Corpo celular;
+    * Axônio.
+
+O dendrito(s) corresponde(m) as entradas (inputs) do neurônio, o corpo celular é responsável pelo processamento e o axônio representa a saída (output).
+
+O algoritmo de uma rede neural se resume em:
+
+    * Os dendritos recebem um valor de entrada cada um, esse valor é multiplicado por um peso, uma soma ponderada na verdade;
+    * O neurônio, corpo celular, recebe a soma ponderada e através de uma verificação matemática, decide o valor de saída para o neurônio. Isso é conhecido por função de ativação, que em muitas vezes se resume em um if que testa se a soma é maior ou menor que zero;
+    * O axônio transmite essa saída
+
+Você pode pensar “Hum muito bem, onde está a inteligência artificial nisso?”, a inteligência artificial está no próximo passo do algoritmo, o neurônio deve ser treinado, ele deve receber um conjunto de valores de entrada para os dendritos e a saída válida, saída conhecida para esse conjunto de entradas. Com posse disso o neurônio é treinado, e o grande segredo de uma rede neural é o ajuste dos pesos que são multiplicados pelas entradas no dendritos, nessa parte que consta a inteligência artificial. O grande foco e obter os pesos ideias para que a rede neural se comporte da melhor forma, depois de encontrar esses pesos basta em usá-los sempre.
+
+Na verdade tudo é matemática.
+
+Agora que está claro como tudo acontece vamos ver a implementação. Vamos começar pelas estruturas de dados mais básicas e avançamos para as mais complexas.
+
+Vamos entender como as classes acima se juntam para implementar a rede neural, a classe NeuralNetworkAgent.java possui os exemplos de treinamento, esses exemplos foram captados quando eu estava realmente jogando, por isso que a saída é conhecida, é o que se espera que o Mario faça quando ele tiver obstáculos pela frente. Além dos exemplos essa classe define o comportamento inicial do Mario que é andar para direita, a classe também realiza o treinamento, e com posse dos pesos ela abre a tela do jogo e coloca o Mario para jogar sozinho com inteligência. No código incluído está para toda vez os pesos serem calculados, é possível passar pesos padrões para o neurônio, essa parte do código está comentada, se você descomentar já irá ver o Mario jogando com os melhores pesos que eu encontrei.
+
+A classe Point.java descreve os pontos ou ponto de entrada, ela recebe a informação se existem obstáculos na posição 1 e na posição 2 e a saída que deve existir.
+
+A classe Dendrite.java descreve um dendrito e o seu valor de entrada.
+
+A classe Axon.java descreve o axônio do neurônio, o sinal de saída, que também é transformado em um valor booleano.
+
+A classe Neuron.java por sua vez que realiza todo o trabalho, cálculo dos melhores pesos e o emprego da inteligência artificial. Poder conter vários dendritos (várias entradas), uma única saída, os pesos para cada entrada e a constante de aprendizado. Inicialmente os pesos são valores randômicos, ao entrar no treinamento, os melhores pesos tentam ser encontrados, não sempre isso acontece, vai depender da quantidade de exemplos de treinamento e a quantidade de épocas. As épocas são quantas vezes o algoritmo vai ser repetido para tentar encontrar os melhores pesos para a rede neural. A constante de aprendizado é usada para alterar os pesos e tentar achar o melhor peso, as referências bibliográficas afirmam que quanto menor a constante de aprendizado, mais vai demorar para encontrar os pesos, mas os pesos encontrados são melhores e mais úteis para o funcionamento da rede.
+
+A classe Main.java que executa o jogo e coloca todas as classes para trabalhar afim de obter a rede neural.
+
+É claro que para o Mario rodar, é necessário ter toda o código fonte do Mario, disponibilizado no endereço que eu mencionei no começo do texto. Os códigos apresentados são apenas um agente inteligente que foi embutido no jogo do Mario.
+
+Eu não vou entrar em mais detalhes do algoritmo, com posse dessas informações e comentários você já deve ser capaz de entender tudo que está acontecendo.
+
+O que eu escrevi nesse texto não representa a verdade absoluta, eu ainda estou estudando o assunto, por isso algumas coisas podem estar erradas ou podem ser feitas de uma forma muito melhor. Apenas quero ajudar e propagar o conhecimento.
+
+O código fonte está disponível em: http://github.com/patrickespake/Mario-Neural-Network-Agent
+
+Mais detalhes em: http://blog.patrickespake.com/2010/05/10/construcao-de-um-agente-inteligente-que-jogue-mario/
