@@ -1,53 +1,53 @@
-Construção de um Agente Inteligente que Jogue Mario
+ConstruÃ§Ã£o de um Agente Inteligente que Jogue Mario
 
-Nas últimas semanas eu veio estudando a fundo a técnica de inteligência artificial de redes neurais. Não é toa que praticamente os meus dois últimos posts foram sobre esse assunto.
+Nas Ãºltimas semanas eu veio estudando a fundo a tÃ©cnica de inteligÃªncia artificial de redes neurais. NÃ£o Ã© toa que praticamente os meus dois Ãºltimos posts foram sobre esse assunto.
 
-Tudo começou com a ideia de criar um agente inteligente que conseguisse jogar Mario sozinho, a minha pretensão nunca foi muito grande, eu apenas tinha a ideia de fazer algo simples que funcionasse, mas não tinha a grande pretensão de fazer um super agente inteligente capaz de passar por vários níveis diferentes de dificuldade do jogo Mario. Partindo disso, com o único objetivo de aprendizado, eu decidi usar a técnica de redes neurais e fazer o Mario passar pela primeira fase.
+Tudo comeÃ§ou com a ideia de criar um agente inteligente que conseguisse jogar Mario sozinho, a minha pretensÃ£o nunca foi muito grande, eu apenas tinha a ideia de fazer algo simples que funcionasse, mas nÃ£o tinha a grande pretensÃ£o de fazer um super agente inteligente capaz de passar por vÃ¡rios nÃ­veis diferentes de dificuldade do jogo Mario. Partindo disso, com o Ãºnico objetivo de aprendizado, eu decidi usar a tÃ©cnica de redes neurais e fazer o Mario passar pela primeira fase.
 
-Para simplificar mais ainda, eu fiz por padrão o Mario andar para a direita e a única ação que é aplicada inteligência artificial é a decisão se o Mario deve ou não pular.
+Para simplificar mais ainda, eu fiz por padrÃ£o o Mario andar para a direita e a Ãºnica aÃ§Ã£o que Ã© aplicada inteligÃªncia artificial Ã© a decisÃ£o se o Mario deve ou nÃ£o pular.
 
-O código do jogo Mario eu obtive do site: http://www.marioai.org/gameplay-track/getting-started, esse é o site da competição que tem o foco na criação de agentes inteligentes e criação de fases para o Mario, usando inteligência artificial. Eles não disponibilizam o código da parte de inteligência artificial, cabe a cada participante implementar o seu algoritmo e enviar para a competição, o melhor agente inteligente vence. Eu também não tinha a ideia de vencer essa competição, não tenho nível e conhecimento suficiente para isso ainda.
+O cÃ³digo do jogo Mario eu obtive do site: http://www.marioai.org/gameplay-track/getting-started, esse Ã© o site da competiÃ§Ã£o que tem o foco na criaÃ§Ã£o de agentes inteligentes e criaÃ§Ã£o de fases para o Mario, usando inteligÃªncia artificial. Eles nÃ£o disponibilizam o cÃ³digo da parte de inteligÃªncia artificial, cabe a cada participante implementar o seu algoritmo e enviar para a competiÃ§Ã£o, o melhor agente inteligente vence. Eu tambÃ©m nÃ£o tinha a ideia de vencer essa competiÃ§Ã£o, nÃ£o tenho nÃ­vel e conhecimento suficiente para isso ainda.
 
-Antes de entrarmos em código e implementação, é importante entender do que consiste a técnica de redes neurais.
+Antes de entrarmos em cÃ³digo e implementaÃ§Ã£o, Ã© importante entender do que consiste a tÃ©cnica de redes neurais.
 
-De forma resumida, uma rede neural é constituída por um neurônio (perceptron), que possui a seguinte estrutra:
+De forma resumida, uma rede neural Ã© constituÃ­da por um neurÃ´nio (perceptron), que possui a seguinte estrutra:
 
     * Dendritos;
     * Corpo celular;
-    * Axônio.
+    * AxÃ´nio.
 
-O dendrito(s) corresponde(m) as entradas (inputs) do neurônio, o corpo celular é responsável pelo processamento e o axônio representa a saída (output).
+O dendrito(s) corresponde(m) as entradas (inputs) do neurÃ´nio, o corpo celular Ã© responsÃ¡vel pelo processamento e o axÃ´nio representa a saÃ­da (output).
 
 O algoritmo de uma rede neural se resume em:
 
-    * Os dendritos recebem um valor de entrada cada um, esse valor é multiplicado por um peso, uma soma ponderada na verdade;
-    * O neurônio, corpo celular, recebe a soma ponderada e através de uma verificação matemática, decide o valor de saída para o neurônio. Isso é conhecido por função de ativação, que em muitas vezes se resume em um if que testa se a soma é maior ou menor que zero;
-    * O axônio transmite essa saída
+    * Os dendritos recebem um valor de entrada cada um, esse valor Ã© multiplicado por um peso, uma soma ponderada na verdade;
+    * O neurÃ´nio, corpo celular, recebe a soma ponderada e atravÃ©s de uma verificaÃ§Ã£o matemÃ¡tica, decide o valor de saÃ­da para o neurÃ´nio. Isso Ã© conhecido por funÃ§Ã£o de ativaÃ§Ã£o, que em muitas vezes se resume em um if que testa se a soma Ã© maior ou menor que zero;
+    * O axÃ´nio transmite essa saÃ­da
 
-Você pode pensar “Hum muito bem, onde está a inteligência artificial nisso?”, a inteligência artificial está no próximo passo do algoritmo, o neurônio deve ser treinado, ele deve receber um conjunto de valores de entrada para os dendritos e a saída válida, saída conhecida para esse conjunto de entradas. Com posse disso o neurônio é treinado, e o grande segredo de uma rede neural é o ajuste dos pesos que são multiplicados pelas entradas no dendritos, nessa parte que consta a inteligência artificial. O grande foco e obter os pesos ideias para que a rede neural se comporte da melhor forma, depois de encontrar esses pesos basta em usá-los sempre.
+VocÃª pode pensar â€œHum muito bem, onde estÃ¡ a inteligÃªncia artificial nisso?â€, a inteligÃªncia artificial estÃ¡ no prÃ³ximo passo do algoritmo, o neurÃ´nio deve ser treinado, ele deve receber um conjunto de valores de entrada para os dendritos e a saÃ­da vÃ¡lida, saÃ­da conhecida para esse conjunto de entradas. Com posse disso o neurÃ´nio Ã© treinado, e o grande segredo de uma rede neural Ã© o ajuste dos pesos que sÃ£o multiplicados pelas entradas no dendritos, nessa parte que consta a inteligÃªncia artificial. O grande foco e obter os pesos ideias para que a rede neural se comporte da melhor forma, depois de encontrar esses pesos basta em usÃ¡-los sempre.
 
-Na verdade tudo é matemática.
+Na verdade tudo Ã© matemÃ¡tica.
 
-Agora que está claro como tudo acontece vamos ver a implementação. Vamos começar pelas estruturas de dados mais básicas e avançamos para as mais complexas.
+Agora que estÃ¡ claro como tudo acontece vamos ver a implementaÃ§Ã£o. Vamos comeÃ§ar pelas estruturas de dados mais bÃ¡sicas e avanÃ§amos para as mais complexas.
 
-Vamos entender como as classes acima se juntam para implementar a rede neural, a classe NeuralNetworkAgent.java possui os exemplos de treinamento, esses exemplos foram captados quando eu estava realmente jogando, por isso que a saída é conhecida, é o que se espera que o Mario faça quando ele tiver obstáculos pela frente. Além dos exemplos essa classe define o comportamento inicial do Mario que é andar para direita, a classe também realiza o treinamento, e com posse dos pesos ela abre a tela do jogo e coloca o Mario para jogar sozinho com inteligência. No código incluído está para toda vez os pesos serem calculados, é possível passar pesos padrões para o neurônio, essa parte do código está comentada, se você descomentar já irá ver o Mario jogando com os melhores pesos que eu encontrei.
+Vamos entender como as classes acima se juntam para implementar a rede neural, a classe NeuralNetworkAgent.java possui os exemplos de treinamento, esses exemplos foram captados quando eu estava realmente jogando, por isso que a saÃ­da Ã© conhecida, Ã© o que se espera que o Mario faÃ§a quando ele tiver obstÃ¡culos pela frente. AlÃ©m dos exemplos essa classe define o comportamento inicial do Mario que Ã© andar para direita, a classe tambÃ©m realiza o treinamento, e com posse dos pesos ela abre a tela do jogo e coloca o Mario para jogar sozinho com inteligÃªncia. No cÃ³digo incluÃ­do estÃ¡ para toda vez os pesos serem calculados, Ã© possÃ­vel passar pesos padrÃµes para o neurÃ´nio, essa parte do cÃ³digo estÃ¡ comentada, se vocÃª descomentar jÃ¡ irÃ¡ ver o Mario jogando com os melhores pesos que eu encontrei.
 
-A classe Point.java descreve os pontos ou ponto de entrada, ela recebe a informação se existem obstáculos na posição 1 e na posição 2 e a saída que deve existir.
+A classe Point.java descreve os pontos ou ponto de entrada, ela recebe a informaÃ§Ã£o se existem obstÃ¡culos na posiÃ§Ã£o 1 e na posiÃ§Ã£o 2 e a saÃ­da que deve existir.
 
 A classe Dendrite.java descreve um dendrito e o seu valor de entrada.
 
-A classe Axon.java descreve o axônio do neurônio, o sinal de saída, que também é transformado em um valor booleano.
+A classe Axon.java descreve o axÃ´nio do neurÃ´nio, o sinal de saÃ­da, que tambÃ©m Ã© transformado em um valor booleano.
 
-A classe Neuron.java por sua vez que realiza todo o trabalho, cálculo dos melhores pesos e o emprego da inteligência artificial. Poder conter vários dendritos (várias entradas), uma única saída, os pesos para cada entrada e a constante de aprendizado. Inicialmente os pesos são valores randômicos, ao entrar no treinamento, os melhores pesos tentam ser encontrados, não sempre isso acontece, vai depender da quantidade de exemplos de treinamento e a quantidade de épocas. As épocas são quantas vezes o algoritmo vai ser repetido para tentar encontrar os melhores pesos para a rede neural. A constante de aprendizado é usada para alterar os pesos e tentar achar o melhor peso, as referências bibliográficas afirmam que quanto menor a constante de aprendizado, mais vai demorar para encontrar os pesos, mas os pesos encontrados são melhores e mais úteis para o funcionamento da rede.
+A classe Neuron.java por sua vez que realiza todo o trabalho, cÃ¡lculo dos melhores pesos e o emprego da inteligÃªncia artificial. Poder conter vÃ¡rios dendritos (vÃ¡rias entradas), uma Ãºnica saÃ­da, os pesos para cada entrada e a constante de aprendizado. Inicialmente os pesos sÃ£o valores randÃ´micos, ao entrar no treinamento, os melhores pesos tentam ser encontrados, nÃ£o sempre isso acontece, vai depender da quantidade de exemplos de treinamento e a quantidade de Ã©pocas. As Ã©pocas sÃ£o quantas vezes o algoritmo vai ser repetido para tentar encontrar os melhores pesos para a rede neural. A constante de aprendizado Ã© usada para alterar os pesos e tentar achar o melhor peso, as referÃªncias bibliogrÃ¡ficas afirmam que quanto menor a constante de aprendizado, mais vai demorar para encontrar os pesos, mas os pesos encontrados sÃ£o melhores e mais Ãºteis para o funcionamento da rede.
 
 A classe Main.java que executa o jogo e coloca todas as classes para trabalhar afim de obter a rede neural.
 
-É claro que para o Mario rodar, é necessário ter toda o código fonte do Mario, disponibilizado no endereço que eu mencionei no começo do texto. Os códigos apresentados são apenas um agente inteligente que foi embutido no jogo do Mario.
+Ã‰ claro que para o Mario rodar, Ã© necessÃ¡rio ter toda o cÃ³digo fonte do Mario, disponibilizado no endereÃ§o que eu mencionei no comeÃ§o do texto. Os cÃ³digos apresentados sÃ£o apenas um agente inteligente que foi embutido no jogo do Mario.
 
-Eu não vou entrar em mais detalhes do algoritmo, com posse dessas informações e comentários você já deve ser capaz de entender tudo que está acontecendo.
+Eu nÃ£o vou entrar em mais detalhes do algoritmo, com posse dessas informaÃ§Ãµes e comentÃ¡rios vocÃª jÃ¡ deve ser capaz de entender tudo que estÃ¡ acontecendo.
 
-O que eu escrevi nesse texto não representa a verdade absoluta, eu ainda estou estudando o assunto, por isso algumas coisas podem estar erradas ou podem ser feitas de uma forma muito melhor. Apenas quero ajudar e propagar o conhecimento.
+O que eu escrevi nesse texto nÃ£o representa a verdade absoluta, eu ainda estou estudando o assunto, por isso algumas coisas podem estar erradas ou podem ser feitas de uma forma muito melhor. Apenas quero ajudar e propagar o conhecimento.
 
-O código fonte está disponível em: http://github.com/patrickespake/Mario-Neural-Network-Agent
+O cÃ³digo fonte estÃ¡ disponÃ­vel em: http://github.com/patrickespake/Mario-Neural-Network-Agent
 
 Mais detalhes em: http://blog.patrickespake.com/2010/05/10/construcao-de-um-agente-inteligente-que-jogue-mario/
